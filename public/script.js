@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const mensagemErro = document.getElementById("mensagem-erro");
     const totalLikes = document.getElementById("total-likes");
     const totalDislikes = document.getElementById("total-dislikes");
-    const btnCadastrarPet = document.getElementById("btn-cadastrar-pet");
-    const modalCadastrarPet = document.getElementById("modal-cadastrar-pet");
-    const btnCancelarPet = document.getElementById("btn-cancelar-pet");
-    const btnSalvarPet = document.getElementById("btn-salvar-pet");
-    const mensagemErroPet = document.getElementById("mensagem-erro-pet");
-    const modalEditarPet = document.getElementById("modal-editar-pet");
+    const btnCadastrarPost = document.getElementById("btn-criar-post");
+    const modalCadastrarPost = document.getElementById("modal-cadastrar-post");
+    const btnCancelarPost = document.getElementById("btn-cancelar-post");
+    const btnSalvarPost = document.getElementById("btn-salvar-post");
+    const mensagemErroPost = document.getElementById("mensagem-erro-post");
+    const modalEditarPost = document.getElementById("modal-editar-post");
     const btnCancelarEditar = document.getElementById("btn-cancelar-editar");
     const btnSalvarEditar = document.getElementById("btn-salvar-editar");
     const mensagemErroEditar = document.getElementById("mensagem-erro-editar");
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (usuarioLogado && btnLogin) {
             btnLogin.textContent = `Olá, ${usuarioLogado}`;
             if (btnIrCadastro) btnIrCadastro.style.display = "none";
-            if (btnCadastrarPet) btnCadastrarPet.style.display = "block";
+            if (btnCadastrarPost) btnCadastrarPost.style.display = "block";
             if (btnMinhasPublicacoes) btnMinhasPublicacoes.style.display = "block";
             if (btnVoltarInicial) btnVoltarInicial.style.display = "block";
             let btnSair = document.getElementById("btn-sair");
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         } else {
             if (btnIrCadastro) btnIrCadastro.style.display = "block";
-            if (btnCadastrarPet) btnCadastrarPet.style.display = "none";
+            if (btnCadastrarPost) btnCadastrarPost.style.display = "none";
             if (btnMinhasPublicacoes) btnMinhasPublicacoes.style.display = "none";
             if (btnVoltarInicial) btnVoltarInicial.style.display = "none";
             const btnSair = document.getElementById("btn-sair");
@@ -88,7 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nickname, senha })
-            })
+            }) 
+            
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -110,55 +111,55 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    if (btnCadastrarPet) {
-        btnCadastrarPet.addEventListener("click", () => {
-            if (modalCadastrarPet) modalCadastrarPet.style.display = "block";
+    if (btnCadastrarPost) {
+        btnCadastrarPost.addEventListener("click", () => {
+            if (modalCadastrarPost) modalCadastrarPost.style.display = "block";
         });
     }
 
-    if (btnCancelarPet) {
-        btnCancelarPet.addEventListener("click", () => {
-            if (modalCadastrarPet) modalCadastrarPet.style.display = "none";
-            limparModalPet();
+    if (btnCancelarPost) {
+        btnCancelarPost.addEventListener("click", () => {
+            if (modalCadastrarPost) modalCadastrarPost.style.display = "none";
+            limparModalPost();
         });
     }
 
-    if (btnSalvarPet) {
-        btnSalvarPet.addEventListener("click", () => {
-            const fotoInput = document.getElementById("foto-pet");
-            const nomePet = document.getElementById("nome-pet").value;
-            const localPet = document.getElementById("local-pet").value;
-            const cidadePet = document.getElementById("cidade-pet").value;
+    if (btnSalvarPost) {
+        btnSalvarPost.addEventListener("click", () => {
+            const fotoInput = document.getElementById("foto-post");
+            const nomePost = document.getElementById("nome-post").value;
+            const localPost = document.getElementById("local-post").value;
+            const cidadePost = document.getElementById("cidade-post").value;
 
-            if (!fotoInput.files[0] || !nomePet || !localPet || !cidadePet) {
-                if (mensagemErroPet) mensagemErroPet.textContent = "Todos os campos são obrigatórios.";
+            if (!fotoInput.files[0] || !nomePost || !localPost || !cidadePost) {
+                if (mensagemErroPost) mensagemErroPost.textContent = "Todos os campos são obrigatórios.";
                 return;
             }
 
             const formData = new FormData();
             formData.append("foto", fotoInput.files[0]);
-            formData.append("nome_pet", nomePet);
-            formData.append("local", localPet);
-            formData.append("cidade", cidadePet);
+            formData.append("nome_post", nomePost);
+            formData.append("local", localPost);
+            formData.append("cidade", cidadePost);
             formData.append("usuarioid", usuarioLogadoId);
 
-            fetch('http://localhost:3000/cadastrar-pet', {
+            fetch('http://localhost:3000/cadastrar-post', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    if (modalCadastrarPet) modalCadastrarPet.style.display = "none";
-                    limparModalPet();
+                    if (modalCadastrarPost) modalCadastrarPost.style.display = "none";
+                    limparModalPost();
                     carregarPublicacoes();
-                } else if (mensagemErroPet) {
-                    mensagemErroPet.textContent = data.message;
+                } else if (mensagemErroPost) {
+                    mensagemErroPost.textContent = data.message;
                 }
             })
             .catch(error => {
-                console.error('Erro ao cadastrar pet:', error);
-                if (mensagemErroPet) mensagemErroPet.textContent = "Ocorreu um erro. Tente novamente.";
+                console.error('Erro ao cadastrar post:', error);
+                if (mensagemErroPost) mensagemErroPost.textContent = "Ocorreu um erro. Tente novamente.";
             });
         });
     }
@@ -175,12 +176,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function limparModalPet() {
-        document.getElementById("foto-pet").value = "";
-        document.getElementById("nome-pet").value = "";
-        document.getElementById("local-pet").value = "";
-        document.getElementById("cidade-pet").value = "";
-        if (mensagemErroPet) mensagemErroPet.textContent = "";
+    function limparModalPost() {
+        document.getElementById("foto-post").value = "";
+        document.getElementById("nome-post").value = "";
+        document.getElementById("local-post").value = "";
+        document.getElementById("cidade-post").value = "";
+        if (mensagemErroPost) mensagemErroPost.textContent = "";
     }
 
     const formCadastro = document.getElementById("form-cadastro");
@@ -234,8 +235,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     publicacao.setAttribute('data-publicacao-id', pub.id_publicacao);
                     publicacao.setAttribute('data-usuario-id', pub.usuarioid);
                     publicacao.innerHTML = `
-                        <img src="${pub.foto}" width="100%" alt="${pub.nome_pet}">
-                        <h3>${pub.nome_pet}</h3>
+                        <img src="${pub.foto}" width="100%" alt="${pub.nome_post}">
+                        <h3>${pub.nome_post}</h3>
                         <p>${pub.local} - ${pub.cidade}</p>
                         <div class="interacoes">
                             <img src="images/flecha_cima_vazia.svg" alt="Like" class="like">
@@ -286,8 +287,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     publicacao.setAttribute('data-publicacao-id', pub.id_publicacao);
                     publicacao.setAttribute('data-usuario-id', pub.usuarioid);
                     publicacao.innerHTML = `
-                        <img src="${pub.foto}" width="100%" alt="${pub.nome_pet}">
-                        <h3>${pub.nome_pet}</h3>
+                        <img src="${pub.foto}" width="100%" alt="${pub.nome_post}">
+                        <h3>${pub.nome_post}</h3>
                         <p>${pub.local} - ${pub.cidade}</p>
                         <div class="interacoes">
                             <img src="images/flecha_cima_vazia.svg" alt="Like" class="like">
@@ -608,33 +609,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function editarPublicacao(publicacaoElement, publicacaoId) {
-        const nomePet = publicacaoElement.querySelector("h3").textContent;
-        const [localPet, cidadePet] = publicacaoElement.querySelector("p").textContent.split(" - ");
+        const nomePost = publicacaoElement.querySelector("h3").textContent;
+        const [localPost, cidadePost] = publicacaoElement.querySelector("p").textContent.split(" - ");
 
-        document.getElementById("nome-pet-editar").value = nomePet;
-        document.getElementById("local-pet-editar").value = localPet;
-        document.getElementById("cidade-pet-editar").value = cidadePet;
-        document.getElementById("foto-pet-editar").value = "";
+        document.getElementById("nome-post-editar").value = nomePost;
+        document.getElementById("local-post-editar").value = localPost;
+        document.getElementById("cidade-post-editar").value = cidadePost;
+        document.getElementById("foto-post-editar").value = "";
         if (mensagemErroEditar) mensagemErroEditar.textContent = "";
 
-        modalEditarPet.style.display = "block";
+        modalEditarPost.style.display = "block";
 
         btnSalvarEditar.onclick = () => {
-            const fotoInput = document.getElementById("foto-pet-editar");
-            const nomePetNovo = document.getElementById("nome-pet-editar").value;
-            const localPetNovo = document.getElementById("local-pet-editar").value;
-            const cidadePetNovo = document.getElementById("cidade-pet-editar").value;
+            const fotoInput = document.getElementById("foto-post-editar");
+            const nomepostNovo = document.getElementById("nome-post-editar").value;
+            const localPostNovo = document.getElementById("local-post-editar").value;
+            const cidadePostNovo = document.getElementById("cidade-post-editar").value;
 
-            if (!nomePetNovo || !localPetNovo || !cidadePetNovo) {
+            if (!nomePostNovo || !localPostNovo || !cidadePostNovo) {
                 if (mensagemErroEditar) mensagemErroEditar.textContent = "Todos os campos de texto são obrigatórios.";
                 return;
             }
 
             const formData = new FormData();
             if (fotoInput.files[0]) formData.append("foto", fotoInput.files[0]);
-            formData.append("nome_pet", nomePetNovo);
-            formData.append("local", localPetNovo);
-            formData.append("cidade", cidadePetNovo);
+            formData.append("nome_post", nomePostNovo);
+            formData.append("local", localPostNovo);
+            formData.append("cidade", cidadePostNovo);
             formData.append("publicacaoId", publicacaoId);
             formData.append("usuarioId", usuarioLogadoId);
 
@@ -645,10 +646,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    publicacaoElement.querySelector("h3").textContent = nomePetNovo;
-                    publicacaoElement.querySelector("p").textContent = `${localPetNovo} - ${cidadePetNovo}`;
+                    publicacaoElement.querySelector("h3").textContent = nomePostNovo;
+                    publicacaoElement.querySelector("p").textContent = `${localPostNovo} - ${cidadePostNovo}`;
                     if (data.foto) publicacaoElement.querySelector("img").src = data.foto;
-                    modalEditarPet.style.display = "none";
+                    modalEditarPost.style.display = "none";
                     limparModalEditar();
                     if (window.location.pathname.includes("minhas-publicacoes.html")) carregarMinhasPublicacoes();
                 } else if (mensagemErroEditar) {
@@ -662,7 +663,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         btnCancelarEditar.onclick = () => {
-            modalEditarPet.style.display = "none";
+            modalEditarPost.style.display = "none";
             limparModalEditar();
         };
     }
@@ -717,10 +718,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function limparModalEditar() {
-        document.getElementById("foto-pet-editar").value = "";
-        document.getElementById("nome-pet-editar").value = "";
-        document.getElementById("local-pet-editar").value = "";
-        document.getElementById("cidade-pet-editar").value = "";
+        document.getElementById("foto-post-editar").value = "";
+        document.getElementById("nome-post-editar").value = "";
+        document.getElementById("local-post-editar").value = "";
+        document.getElementById("cidade-post-editar").value = "";
         if (mensagemErroEditar) mensagemErroEditar.textContent = "";
     }
 

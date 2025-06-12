@@ -235,7 +235,7 @@ body {
     gap: 10px;
 }
 
-#btn-login, #btn-ir-cadastro, #btn-cadastrar-pet {
+#btn-login, #btn-ir-cadastro, #btn-cadastrar-post {
     background-color: #D97014;
     color: white;
     border: none;
@@ -245,7 +245,7 @@ body {
     font-weight: bold;
 }
 
-.modal-login, .modal-cadastrar-pet, .modal-editar-pet {
+.modal-login, .modal-cadastrar-post, .modal-editar-post {
     display: none;
     position: fixed;
     top: 0;
@@ -281,7 +281,7 @@ body {
     box-sizing: border-box;
 }
 
-#btn-cancelar, #btn-cancelar-pet, #btn-cancelar-editar {
+#btn-cancelar, #btn-cancelar-post, #btn-cancelar-editar {
     background-color: transparent;
     border: 1px solid #D97014;
     color: #D97014;
@@ -290,7 +290,7 @@ body {
     cursor: pointer;
 }
 
-#btn-entrar, #btn-salvar-pet, #btn-salvar-editar {
+#btn-entrar, #btn-salvar-post, #btn-salvar-editar {
     background-color: #D97014;
     color: white;
     padding: 10px 20px;
@@ -345,7 +345,7 @@ footer {
     gap: 10px;
 }
 
-#btn-login, #btn-ir-cadastro, #btn-cadastrar-pet, #btn-minhas-publicacoes, #btn-voltar-inicial {
+#btn-login, #btn-ir-cadastro, #btn-cadastrar-post, #btn-minhas-publicacoes, #btn-voltar-inicial, #btn-criar-post {
     background-color: #D97014;
     color: white;
     border: none;
